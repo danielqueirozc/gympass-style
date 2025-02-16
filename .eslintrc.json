@@ -1,0 +1,33 @@
+{
+    "env": {
+      "node": true,
+      "es2021": true
+    },
+    "extends": ["eslint:recommended"], // Base recomendada
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "rules": {
+      // ========== FORMATTAÇÃO ==========
+      "quotes": ["error", "single"],     // Aspas simples
+      "indent": ["error", 2],            // Identação de 2 espaços
+      "comma-dangle": ["error", "never"], // Proíbe vírgula no final
+  
+      // ========== BOAS PRÁTICAS ==========
+      "eqeqeq": "error",                // Exige === em vez de ==
+      "curly": "error",                  // Obriga chaves em blocos
+      "no-unused-vars": "warn",         // Avisa variáveis não usadas
+      "no-undef": "error",              // Bloqueia variáveis não declaradas
+  
+      // ========== ESTILO ==========
+      "camelcase": ["error", {           // Força camelCase
+        "properties": "always"
+      }],
+      "space-before-function-paren": ["error", {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }]
+    }
+  }
