@@ -1,0 +1,23 @@
+{
+  "name": "gympass-style-app",
+  "version": "1.0.0",
+  "description": "- [] Deve ser possivel...\r - [  ] Deve ser possivel se cadastrar\r - [  ] Deve ser possivel de autenticar\r - [  ] Deve ser possivel obter o perfil de um usuario logado\r - [  ] Deve ser possivel obter o numero de check-ins realizados pelo usuario logado\r - [  ] Deve ser possivel o usuario obter seu historico de check-ins\r - [  ] Deve ser possivel o usuario buscar academias proximas\r - [  ] Deve ser possivel o usuario buscar academias pelo nome\r - [  ] Deve ser possivel o usuario realizar check-in em uma academia\r - [  ] Deve ser possivel validar i check-in de um usuario'\r - [  ] Deve ser possivel cadastrar uma academia",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "fastify": "^5.2.1"
+  }
+}
