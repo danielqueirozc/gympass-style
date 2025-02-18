@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String     @id @default(uuid())
+  name      String
+  email     String     @unique
+
+  @@map("users")
+}
+
+// quando eu coloco 2 @@ estou configurando o model (a tabela)
+// quando for 1 @ eu estou configurando apenas o campo (coluna)
+
+// @id tem que ser passada obrigatoriamente em todas as tabelas
+
+// prisma migrate: cria a tipagem do schema
