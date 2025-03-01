@@ -14,11 +14,41 @@ datasource db {
 }
 
 model User {
-  id        String     @id @default(uuid())
-  name      String
-  email     String     @unique
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  password_hash String
+  created_at    DateTime  @default(now())
+  CheckIns      CheckIn[]
 
   @@map("users")
+}
+
+model CheckIn {
+  id           String    @id @default(uuid())
+  created_at   DateTime  @default(now())
+  validated_at DateTime? // coloquei uma data opcional pq assim eu consigo saber se o check-in foi validado ou nao e quando e que foi validado
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  gym    Gym    @relation(fields: [gym_id], references: [id])
+  gym_id String
+
+  @@map("check_ins")
+}
+
+model Gym {
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+  phone       String?
+  latitude    Decimal
+  longitude   Decimal
+
+  CheckIns CheckIn[]
+
+  @@map("gyms")
 }
 
 // quando eu coloco 2 @@ estou configurando o model (a tabela)
@@ -27,3 +57,13 @@ model User {
 // @id tem que ser passada obrigatoriamente em todas as tabelas
 
 // prisma migrate: cria a tipagem do schema
+
+// docker run --name gym-style-pg -e POSTGRESQL_USERNAME=docker -e POSTGRESQL_PASSWORD=docker -e POSTGRESQL_DATABASE=gymstyle -p 5432:5432  bitnami/postgresql
+// docker rm [nome do container]: apagar o container
+// docker stop [nome do container]: parar o container
+// docker logs [nome do container]: ver os logs do container
+// docker start [nome do container]: iniciar o container
+
+// 1-1 => um para um: um user para um check-in
+// 1-n => um para muitos: um user para muitos check-ins
+// n-n => muitos para muitos: muitos users para muitos check-ins
