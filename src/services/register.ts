@@ -1,5 +1,4 @@
-import { prisma } from "@/lib/prisma"
-import { PrismaUsersRepository } from "@/repositories/prisma-users-repository"
+import { UsersRepository } from "@/repositories/users-repository"
 import { hash } from "bcryptjs"
 
 interface RegisterUseCaseRequest {
@@ -7,22 +6,30 @@ interface RegisterUseCaseRequest {
     email: string
     password: string
 }
-export async function registerUseCase({ name, email, password }: RegisterUseCaseRequest) {
-    const password_hash = await hash(password, 6) // qaundo retorna uma promise usamos o await para aguardar finalizar
-    // 6 e o numero de rounds -> quanto mais rounds mais seguro, porem mais lento
 
-    const userWithSameEmail = await prisma.user.findUnique({
-        where: {
-            email
-        }
-    })
+// SOLID
+// D - Dependency Inversion Priciple
 
-    if (userWithSameEmail) {
-        throw new Error('User already exists')
+export class RegisterUseCase {
+
+    constructor (private usersRepository: UsersRepository) {
+
     }
 
-    const prismaUsersRepository = new PrismaUsersRepository()
+    async execute({ name, email, password }: RegisterUseCaseRequest) {
+        const userWithSameEmail = await this.usersRepository.findByEmail(email)
 
-    await prismaUsersRepository.create({ name, email, password_hash })
+        if (userWithSameEmail) {
+            throw new Error('User already exists')
+        }
+
+        const password_hash = await hash(password, 6) // quando retorna uma promise usamos o await para aguardar finalizar
+        // 6 e o numero de rounds -> quanto mais rounds mais seguro, porem mais lento
     
+        
+        await this.usersRepository.create({ name, email, password_hash })
+        
+    }
+      
 }
+ 

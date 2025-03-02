@@ -1,6 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify"
 import { z } from "zod"
-import { registerUseCase } from "@/services/register"
+import { RegisterUseCase } from "@/services/register"
+import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-repository"
 
 export async function register (request: FastifyRequest, reply: FastifyReply) {
     const registerBodySchema = z.object({
@@ -12,8 +13,12 @@ export async function register (request: FastifyRequest, reply: FastifyReply) {
     const { name, email, password } = registerBodySchema.parse(request.body) // safe vai disparar um throw se a validação falhar e vai para o codigo
 
    try {
-        registerUseCase({ name, email, password })
-   } catch {
+          const usersRepository = new PrismaUsersRepository()
+          const registerUseCase = new RegisterUseCase(usersRepository)
+
+          await registerUseCase.execute({ name, email, password })
+
+     } catch {
         return reply.status(409).send() // erro 409: conflict / dados duplicados
    }
 
