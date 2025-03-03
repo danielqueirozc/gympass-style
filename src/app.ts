@@ -21,3 +21,6 @@ app.setErrorHandler((error, _, reply) => { // quando houver um erro, ele vai exe
 
     return reply.status(500).send({ message: 'internal server error' })
 }) 
+
+// quando instalar o vitest, instalar esse plugin tambem: vite-tsconfig-paths para ele reconhecer o caminho com @ que configurei no tsconfig
+// mo package.json: test: "vitest run" => vai rodar os testes mas nao vai ficar no modo watch esperando alteracoes
