@@ -18,7 +18,7 @@ interface RegisterUseCaseResponse {
 
 export class RegisterUseCase {
 
-    constructor (private usersRepository: UsersRepository) {}
+    constructor (private usersRepository: UsersRepository) {} // contructor serve para injetar dependencias
 
     async execute({ name, email, password }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
         const userWithSameEmail = await this.usersRepository.findByEmail(email)

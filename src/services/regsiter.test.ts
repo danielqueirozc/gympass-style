@@ -35,7 +35,7 @@ describe('Register use case', () => {
         const { user } = await resgisterUseCase.execute({ // PEGANDO O USUARIO QUE FOI CRIADO NO TESTE
             name: 'John Doe',
             email: 'KZd2Q@example.com',
-            password: '123456'
+            password: '123456' 
         })
 
         // console.log(user.password_hash)
@@ -63,7 +63,7 @@ describe('Register use case', () => {
             password: '123456'
         })
 
-        expect(() => 
+        await expect(() =>  // sempre quando eu faco um expect e dentro dele eu tenho uma promise eu uso o await
             resgisterUseCase.execute({ 
                 name: 'John Doe',
                 email,
