@@ -16,7 +16,7 @@ interface RegisterUseCaseResponse {
 // SOLID
 // D - Dependency Inversion Priciple
 
-export class RegisterUseCase {
+export class RegisterService {
 
     constructor (private usersRepository: UsersRepository) {} // contructor serve para injetar dependencias
 
