@@ -11,3 +11,5 @@ export function makeRegisterService() {
 
     return registerUseCase
 }
+
+// agora quando precisar de mais alguma dependecia eu so preciso importar ela por aqui, nao preciso mais importar em cada um dos arquivos
